@@ -1,10 +1,24 @@
-const withPrefresh = require('@prefresh/next')
-const preact = require('preact')
-const withPreact = require('next-plugin-preact')
+module.exports = {
+  // images: {
+  //   domains: [
+  //     'i.scdn.co', // Spotify Album Art
+  //     'pbs.twimg.com' // Twitter Profile Picture
+  //   ]
+  // },
+  webpack: (config, { dev, isServer }) => {
+    // if (isServer) {
+    //   require('./scripts/generate-sitemap')
+    // }
 
-module.exports = withPreact({
-  experimental: {
-    modern: true
-  },
-  target: 'serverless'
-})
+    // Replace React with Preact only in client production build
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat'
+      })
+    }
+
+    return config
+  }
+}
