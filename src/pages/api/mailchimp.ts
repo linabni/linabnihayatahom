@@ -54,14 +54,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.send({ status: 'success' })
   } catch (error) {
-    // console.log('newsletter error', error)
-
-    // // If error due to email already in list then return success response
-    // // rather than an error (the user doesn't need to know).
-    // if (error.title === 'Member Exists') {
-    //   return res.send({ status: 'success' })
-    // }
-
-    return res.status(500).json({ error: error.message || error.toString() })
+    // If error due to email already in list then return success response
+    // rather than an error (the user doesn't need to know).
+    if (error.title === 'Member Exists') {
+      return res.send({ status: 'success' })
+    }
+    return res.status(500).json({
+      status: 'error',
+      error: error.message || error.toString()
+    })
   }
 }

@@ -10,7 +10,7 @@ const Example = () => {
         <Link
           href={{
             pathname: '/signin',
-            query: { returnUrl: router.pathname }
+            query: { next: router.pathname }
           }}
         >
           Sign in

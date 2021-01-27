@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from 'util/use-auth'
 import { useForm } from 'react-hook-form'
-import { emailRegEx, phoneRegEx, numRegEx } from 'util/validationRegEx'
+import { emailRegEx } from 'util/validationRegEx'
 import { isString } from 'util/predicates'
 import Input from 'components/Input'
 
@@ -12,44 +12,52 @@ type SignInInputs = {
 
 const Signin = () => {
   const router = useRouter()
-  const { sendSignInLink } = useAuth()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<SignInInputs>({ criteriaMode: 'all' })
-
-  const returnUrl = router.query?.returnUrl ?? null
+  const { sendSignInLink, signInWithProvider } = useAuth()
+  const { register, handleSubmit, formState } = useForm<SignInInputs>({ criteriaMode: 'all' })
+  const { errors, isSubmitting, isSubmitSuccessful } = formState
+  const next = router.query?.next ?? ''
 
   const onSubmit = handleSubmit(({ email }) => {
-    console.log(email)
-
-    // if (isString(returnUrl)) {
-    //   return sendSignInLink(email, returnUrl)
-    // }
-    // sendSignInLink(email)
-    reset()
+    if (isString(next)) {
+      return sendSignInLink(email, next)
+    }
+    sendSignInLink(email, '/')
   })
 
+  if (isSubmitSuccessful) {
+    return (
+      <>
+        <h3>check your email</h3>
+      </>
+    )
+  }
+
   return (
-    <form onSubmit={onSubmit}>
-      <Input
-        ref={register({
-          pattern: {
-            value: emailRegEx,
-            message: 'Must be valid email address'
-          },
-          required: 'Email is required'
-        })}
-        errs={errors.email?.message}
-        name="email"
-        label="Email"
-      />
-      <button className="block p-2 rounded bg-gray-200 hover:bg-gray-300" type="submit">
-        Send sign in link
-      </button>
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <Input
+          ref={register({
+            pattern: {
+              value: emailRegEx,
+              message: 'Must be valid email address'
+            },
+            required: 'Email is required'
+          })}
+          errs={errors.email?.message}
+          name="email"
+          label="Email"
+        />
+        <button
+          className="block p-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-20"
+          type="submit"
+          disabled={isSubmitting || isSubmitSuccessful}
+        >
+          Send email link
+        </button>
+      </form>
+      <div>—or—</div>
+      <button onClick={() => signInWithProvider('google')}>Sign in with Google</button>
+    </>
   )
 }
 

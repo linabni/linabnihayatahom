@@ -20,20 +20,10 @@ const Home = () => {
             <Link
               href={{
                 pathname: '/signin',
-                query: { returnUrl: router.pathname }
+                query: { next: router.pathname }
               }}
             >
               Sign in
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={{
-                pathname: '/create-account',
-                query: { returnUrl: router.pathname }
-              }}
-            >
-              Create account
             </Link>
           </div>
         </>
