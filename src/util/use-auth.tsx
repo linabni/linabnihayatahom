@@ -1,6 +1,6 @@
 import * as React from 'react'
 import router from 'next/router'
-import type { UserInfo, GoogleAuthProvider } from '@firebase/auth-types'
+import type { UserCredential, UserInfo } from '@firebase/auth-types'
 import firebase from 'util/firebase'
 import { isString } from 'util/predicates'
 import getFromQueryString from 'util/getFromQueryString'
@@ -74,19 +74,10 @@ function useAuthProvider() {
   }
 
   const signInWithProvider = async (name: string) => {
-    // Get provider data by name ("password", "google", etc)
-    const providerData = allProviders[name]
-    const provider = new providerData.providerMethod()
-
-    // let provider
-    // if (name === 'microsoft' || name === 'yahoo') {
-    //     provider = new providerData.providerMethod(name)
-    //   } else {
-    //     provider = new providerData.providerMethod()
-    // }
-
-    if (providerData.parameters) {
-      provider.setCustomParameters(providerData.parameters)
+    const data = providers[name]
+    const provider = new data.providerMethod()
+    if (data.parameters) {
+      provider.setCustomParameters(data.parameters)
     }
     return firebase.auth().signInWithPopup(provider).then(handleAuth)
   }
@@ -149,33 +140,11 @@ interface ProviderType {
   }
 }
 
-const allProviders: ProviderType = {
+const providers: ProviderType = {
   google: {
     id: 'google.com',
     providerMethod: firebase.auth.GoogleAuthProvider
   }
-  // microsoft: {
-  //   id: 'microsoft.com',
-  //   providerMethod: firebase.auth.OAuthProvider
-  //   // parameters: {
-  //   //   // Force re-consent.
-  //   //   prompt: 'consent',
-  //   //   // Target specific email with login hint.
-  //   //   login_hint: 'user@firstadd.onmicrosoft.com'
-  //   // }
-  // },
-  // yahoo: {
-  //   id: 'yahoo.com',
-  //   providerMethod: firebase.auth.OAuthProvider
-  // },
-  // facebook: {
-  //   id: 'facebook.com',
-  //   providerMethod: firebase.auth.FacebookAuthProvider,
-  //   parameters: {
-  //     // Tell fb to show popup size UI instead of full website
-  //     display: 'popup'
-  //   }
-  // }
 }
 
 // Waits on Firebase user to be initialized before resolving promise
