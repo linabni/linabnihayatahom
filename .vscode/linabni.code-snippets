@@ -1,8 +1,0 @@
-{
-  "Import component": {
-    "scope": "javascript,javascriptreact,typescript,typescriptreact",
-    "prefix": "imc",
-    "body": ["import $1 from 'components/$1'$0"],
-    "description": "import a component"
-  }
-}
