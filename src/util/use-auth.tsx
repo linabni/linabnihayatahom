@@ -114,19 +114,16 @@ export const requireAuth = (Component: React.ComponentType) => {
 
     React.useEffect(() => {
       // Redirect if not signed in
-      if (user === null) {
+      if (!user) {
         router.replace('/')
       }
     }, [user])
 
-    // Show loading indicator
-    // We're either loading (user is null) or we're about to redirect (user is false)
-    if (!user) {
-      return <span>Loading...</span>
+    if (user) {
+      return <Component {...props} />
     }
 
-    // Render component now that we have user
-    return <Component {...props} />
+    return <span>You must be signed in to view this page.</span>
   }
 }
 
