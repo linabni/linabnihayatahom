@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { emailRegEx } from 'util/validationRegEx'
 import { isString } from 'util/predicates'
 import Input from 'components/Input'
+import ContForm from 'components/ContForm'
 
 type SignInInputs = {
   email: string
@@ -13,6 +14,7 @@ type SignInInputs = {
 const Signin = () => {
   const router = useRouter()
   const { sendSignInLink, signInWithProvider } = useAuth()
+  const [isNewUser, setIsNewUser] = React.useState(false)
   const { register, handleSubmit, formState } = useForm<SignInInputs>({ criteriaMode: 'all' })
   const { errors, isSubmitting, isSubmitSuccessful } = formState
   const next = router.query?.next ?? ''
@@ -23,6 +25,18 @@ const Signin = () => {
     }
     sendSignInLink(email, '/')
   })
+
+  const handleProvider = () => {
+    signInWithProvider('google').then((newUser) => {
+      if (newUser === true) {
+        setIsNewUser(true)
+      }
+    })
+  }
+
+  if (isNewUser) {
+    return <ContForm />
+  }
 
   if (isSubmitSuccessful) {
     return (
@@ -56,7 +70,7 @@ const Signin = () => {
         </button>
       </form>
       <div>—or—</div>
-      <button onClick={() => signInWithProvider('google')}>Sign in with Google</button>
+      <button onClick={handleProvider}>Sign in with Google</button>
     </>
   )
 }

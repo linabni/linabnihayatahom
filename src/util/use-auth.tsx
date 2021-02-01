@@ -34,15 +34,11 @@ function useAuthProvider() {
     await waitOnFirebase()
     // Update user in state
     setUser(user)
-
-    const next = getFromQueryString('next')
-
+    // handle new user
     if (additionalUserInfo?.isNewUser) {
-      return router.replace({
-        pathname: '/cont',
-        query: { next }
-      })
+      return true
     }
+    const next = getFromQueryString('next')
     if (isString(next)) {
       return router.replace(next)
     }
@@ -52,7 +48,7 @@ function useAuthProvider() {
   const sendSignInLink = async (email: string, next: string | null) => {
     const hasReturnUrl = next ? `?next=${next}` : ''
     const actionCode = {
-      url: `${window.location.origin}/authorizing${hasReturnUrl}`,
+      url: `${window.location.origin}/cont${hasReturnUrl}`,
       handleCodeInApp: true
     }
     return auth.sendSignInLinkToEmail(email, actionCode).then(() => {
