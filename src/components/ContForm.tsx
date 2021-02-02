@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from 'util/use-auth'
 import { useForm } from 'react-hook-form'
-import { emailRegEx, phoneRegEx, numRegEx } from 'util/validationRegEx'
+import { phoneRegEx, numRegEx } from 'util/validationRegEx'
 import { isString } from 'util/predicates'
 import Input from 'components/Input'
 
@@ -46,31 +46,17 @@ const ContForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      {user?.email ? (
-        <>
-          <label className="block font-semibold mb-1">Email</label>
-          <input
-            readOnly
-            aria-readonly="true"
-            value={user?.email ?? ''}
-            type="text"
-            className="mb-2"
-          />
-        </>
-      ) : (
-        <Input
-          ref={register({
-            pattern: {
-              value: emailRegEx,
-              message: 'Must be valid email address'
-            },
-            required: 'Email is required'
-          })}
-          errs={errors.email?.message}
-          name="email"
-          label="Email"
-        />
-      )}
+      <label className="block font-semibold mb-1">Email</label>
+      <input
+        readOnly
+        disabled
+        aria-readonly="true"
+        aria-disabled="true"
+        value={user?.email ?? 'error loading email'}
+        type="text"
+        className="mb-2 text-gray-600 bg-gray-100 border-gray-300"
+      />
+
       <Input
         ref={register({ required: 'Full name is required' })}
         errs={errors.fullname?.message}

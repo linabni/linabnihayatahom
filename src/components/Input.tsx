@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(({ errs, label, name, ..
         className={cn({ 'mb-2': !errs, 'mb-0.5 border border-red-500': errs })}
         {...rest}
       />
-      <span className={cn({ 'block mb-2 text-red-500': true })} role="alert">
+      <span className={cn({ 'block mb-2 text-red-500': errs })} role="alert">
         {errs}
       </span>
     </>

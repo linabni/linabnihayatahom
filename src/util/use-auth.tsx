@@ -12,12 +12,16 @@ interface AuthContext {
   signout: () => Promise<void>
   sendSignInLink: (email: string, next: string | null) => Promise<void>
   handleSignInLink: () => Promise<boolean | undefined>
-  signInWithProvider: (name: string) => Promise<boolean | undefined>
+  signInWithGoogle: () => Promise<boolean | undefined>
 }
 
 const authContext = React.createContext<AuthContext>(null!)
 
-export const ProvideAuth = ({ children }: { children: React.ReactNode }) => {
+interface ProvideAuthProps {
+  children: React.ReactNode
+}
+
+export const ProvideAuth = ({ children }: ProvideAuthProps) => {
   const auth = useAuthProvider()
   return <authContext.Provider value={auth}>{children}</authContext.Provider>
 }
@@ -28,7 +32,7 @@ function useAuthProvider() {
   const [user, setUser] = React.useState<UserInfo | null>(null)
 
   // Handle response from authentication functions
-  const handleAuth = async (response: firebase.auth.UserCredential) => {
+  const handleAuth = async (response: UserCredential) => {
     const { user, additionalUserInfo } = response
     // Ensure Firebase is actually ready before we continue
     await waitOnFirebase()
@@ -69,12 +73,8 @@ function useAuthProvider() {
     }
   }
 
-  const signInWithProvider = async (name: string) => {
-    const data = providers[name]
-    const provider = new data.providerMethod()
-    if (data.parameters) {
-      provider.setCustomParameters(data.parameters)
-    }
+  const signInWithGoogle = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
     return firebase.auth().signInWithPopup(provider).then(handleAuth)
   }
 
@@ -98,45 +98,7 @@ function useAuthProvider() {
     signout,
     sendSignInLink,
     handleSignInLink,
-    signInWithProvider
-  }
-}
-
-// A Higher Order Component for requiring authentication
-export const requireAuth = (Component: React.ComponentType) => {
-  return (props: JSX.IntrinsicAttributes) => {
-    // Get authenticated user
-    const { user } = useAuth()
-
-    React.useEffect(() => {
-      // Redirect if not signed in
-      if (!user) {
-        router.replace('/')
-      }
-    }, [user])
-
-    if (user) {
-      return <Component {...props} />
-    }
-
-    return <span>You must be signed in to view this page.</span>
-  }
-}
-
-interface ProviderType {
-  [provider: string]: {
-    id: string
-    providerMethod: any
-    parameters?: {
-      [prop: string]: string
-    }
-  }
-}
-
-const providers: ProviderType = {
-  google: {
-    id: 'google.com',
-    providerMethod: firebase.auth.GoogleAuthProvider
+    signInWithGoogle
   }
 }
 

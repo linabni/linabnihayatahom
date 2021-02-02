@@ -13,7 +13,7 @@ type SignInInputs = {
 
 const Signin = () => {
   const router = useRouter()
-  const { sendSignInLink, signInWithProvider } = useAuth()
+  const { sendSignInLink, signInWithGoogle } = useAuth()
   const [isNewUser, setIsNewUser] = React.useState(false)
   const { register, handleSubmit, formState } = useForm<SignInInputs>({ criteriaMode: 'all' })
   const { errors, isSubmitting, isSubmitSuccessful } = formState
@@ -27,7 +27,7 @@ const Signin = () => {
   })
 
   const handleProvider = () => {
-    signInWithProvider('google').then((newUser) => {
+    signInWithGoogle().then((newUser) => {
       if (newUser === true) {
         setIsNewUser(true)
       }

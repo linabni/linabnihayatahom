@@ -1,23 +1,18 @@
-import * as React from 'react'
+import type { LinkProps } from 'next/link'
 import NextLink from 'next/link'
+import { isString } from 'util/predicates'
 
-interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
-  href: string
-}
-
-const Link = (props: LinkProps) => {
-  const { href } = props
-  const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'))
-
-  if (isInternalLink) {
-    return (
-      <NextLink href={href} passHref>
-        <a {...props} />
-      </NextLink>
-    )
+const Link = ({ href, ...rest }: React.PropsWithChildren<LinkProps>) => {
+  // this is an external link
+  if (isString(href) && href?.startsWith('http')) {
+    return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
   }
-
-  return <a target="_blank" rel="noopener noreferrer" {...props} />
+  // this is an internal link
+  return (
+    <NextLink href={href} passHref>
+      <a {...rest} />
+    </NextLink>
+  )
 }
 
 export default Link
