@@ -4,6 +4,7 @@ import type { UserCredential, UserInfo } from '@firebase/auth-types'
 import firebase from 'util/firebase'
 import { isString } from 'util/predicates'
 import getFromQueryString from 'util/getFromQueryString'
+import analytics from 'util/analytics'
 
 const auth = firebase.auth()
 
@@ -30,6 +31,9 @@ export const useAuth = () => React.useContext(authContext)
 
 function useAuthProvider() {
   const [user, setUser] = React.useState<UserInfo | null>(null)
+
+  // Connect analytics session to user
+  useIdentifyUser(user)
 
   // Handle response from authentication functions
   const handleAuth = async (response: UserCredential) => {
@@ -100,6 +104,15 @@ function useAuthProvider() {
     handleSignInLink,
     signInWithGoogle
   }
+}
+
+// Connect analytics session to current user.uid
+function useIdentifyUser(user: UserInfo | null) {
+  React.useEffect(() => {
+    if (user) {
+      analytics.identify(user.uid)
+    }
+  }, [user])
 }
 
 // Waits on Firebase user to be initialized before resolving promise
