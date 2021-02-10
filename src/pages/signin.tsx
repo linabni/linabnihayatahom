@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import { useAuth } from 'util/use-auth'
-import { useForm } from 'react-hook-form'
-import { emailRegEx } from 'util/validationRegEx'
-import { isString } from 'util/predicates'
-import Input from 'components/Input'
-import ContForm from 'components/ContForm'
+import * as React from "react"
+import { useRouter } from "next/router"
+import { useAuth } from "util/use-auth"
+import { useForm } from "react-hook-form"
+import { emailRegEx } from "util/validationRegEx"
+import { isString } from "util/predicates"
+import Input from "components/Input"
+import ContinueForm from "components/ContinueForm"
 
 type SignInInputs = {
   email: string
@@ -15,15 +15,15 @@ const Signin = () => {
   const router = useRouter()
   const { sendSignInLink, signInWithGoogle } = useAuth()
   const [isNewUser, setIsNewUser] = React.useState(false)
-  const { register, handleSubmit, formState } = useForm<SignInInputs>({ criteriaMode: 'all' })
+  const { register, handleSubmit, formState } = useForm<SignInInputs>({ criteriaMode: "all" })
   const { errors, isSubmitting, isSubmitSuccessful } = formState
-  const next = router.query?.next ?? ''
+  const next = router.query?.next ?? ""
 
   const onSubmit = handleSubmit(({ email }) => {
     if (isString(next)) {
       return sendSignInLink(email, next)
     }
-    sendSignInLink(email, '/')
+    sendSignInLink(email, "/")
   })
 
   const handleProvider = () => {
@@ -35,7 +35,7 @@ const Signin = () => {
   }
 
   if (isNewUser) {
-    return <ContForm />
+    return <ContinueForm />
   }
 
   if (isSubmitSuccessful) {
@@ -53,9 +53,9 @@ const Signin = () => {
           ref={register({
             pattern: {
               value: emailRegEx,
-              message: 'Must be valid email address'
+              message: "Must be valid email address"
             },
-            required: 'Email is required'
+            required: "Email is required"
           })}
           errs={errors.email?.message}
           name="email"

@@ -1,7 +1,7 @@
 import queryString from 'query-string'
 
-const getFromQueryString = (key: string) => {
+const qs = (key: string) => {
   return queryString.parse(window.location.search)[key]
 }
 
-export default getFromQueryString
+export default qs

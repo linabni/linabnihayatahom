@@ -1,21 +1,12 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import Link from "next/link"
+import AuthCheck from "components/AuthCheck"
 
 const Example = () => {
-  const router = useRouter()
   return (
     <div>
       <div>Example</div>
-      <div>
-        <Link
-          href={{
-            pathname: '/signin',
-            query: { next: router.pathname }
-          }}
-        >
-          Sign in
-        </Link>
-      </div>
+
+      <AuthCheck />
       <div>
         <Link href="/">Home</Link>
       </div>

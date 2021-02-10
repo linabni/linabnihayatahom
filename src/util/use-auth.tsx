@@ -1,10 +1,10 @@
-import * as React from 'react'
-import router from 'next/router'
-import type { UserCredential, UserInfo } from '@firebase/auth-types'
-import firebase from 'util/firebase'
-import { isString } from 'util/predicates'
-import getFromQueryString from 'util/getFromQueryString'
-import analytics from 'util/analytics'
+import * as React from "react"
+import router from "next/router"
+import type { UserCredential, UserInfo } from "@firebase/auth-types"
+import firebase from "util/firebase"
+import { isString } from "util/predicates"
+import qs from "util/qs"
+import analytics from "util/analytics"
 
 const auth = firebase.auth()
 
@@ -46,32 +46,32 @@ function useAuthProvider() {
     if (additionalUserInfo?.isNewUser) {
       return true
     }
-    const next = getFromQueryString('next')
+    const next = qs("next")
     if (isString(next)) {
       return router.replace(next)
     }
-    router.replace('/')
+    router.replace("/")
   }
 
   const sendSignInLink = async (email: string, next: string | null) => {
-    const hasReturnUrl = next ? `?next=${next}` : ''
+    const hasReturnUrl = next ? `?next=${next}` : ""
     const actionCode = {
       url: `${window.location.origin}/cont${hasReturnUrl}`,
       handleCodeInApp: true
     }
     return auth.sendSignInLinkToEmail(email, actionCode).then(() => {
-      window.localStorage.setItem('emailForSignIn', email)
+      window.localStorage.setItem("emailForSignIn", email)
     })
   }
 
   const handleSignInLink = async () => {
     if (auth.isSignInWithEmailLink(window.location.href)) {
-      var email = window.localStorage.getItem('emailForSignIn')
+      var email = window.localStorage.getItem("emailForSignIn")
       if (!email) {
-        email = window.prompt('Please provide your email for confirmation')
+        email = window.prompt("Please provide your email for confirmation")
       }
       if (!isString(email)) {
-        throw new Error('Invalid email')
+        throw new Error("Invalid email")
       }
       return auth.signInWithEmailLink(email, window.location.href).then(handleAuth)
     }
