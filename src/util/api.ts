@@ -17,7 +17,7 @@ content {
 }
 `
 
-async function fetchGraphQL(query: string, preview: boolean = false) {
+async function fetchGraphQL(query: string) {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
@@ -52,7 +52,7 @@ export async function getAllPostsWithSlug() {
   return extractPostEntries(entries)
 }
 
-export async function getAllPostsForHome(preview: boolean) {
+export async function getAllPostsForHome() {
   const entries = await fetchGraphQL(
     `query {
       postCollection(order: date_DESC) {
@@ -60,13 +60,12 @@ export async function getAllPostsForHome(preview: boolean) {
           ${POST_GRAPHQL_FIELDS}
         }
       }
-    }`,
-    preview
+    }`
   )
   return extractPostEntries(entries)
 }
 
-export async function getPostAndMorePosts(slug: string, preview: boolean) {
+export async function getPostAndMorePosts(slug: string) {
   const entry = await fetchGraphQL(
     `query {
       postCollection(where: { slug: "${slug}" }, limit: 1) {
@@ -74,8 +73,7 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
           ${POST_GRAPHQL_FIELDS}
         }
       }
-    }`,
-    preview
+    }`
   )
   const entries = await fetchGraphQL(
     `query {
@@ -84,8 +82,7 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
           ${POST_GRAPHQL_FIELDS}
         }
       }
-    }`,
-    preview
+    }`
   )
   return {
     post: extractPost(entry),

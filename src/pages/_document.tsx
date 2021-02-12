@@ -1,10 +1,10 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from "next/document"
 
 class MyDocument extends Document {
   render() {
     return (
       // <Html lang="ar" dir="rtl">
-      <Html>
+      <Html lang="en">
         <Head>
           <link href="/favicons/favicon.ico" rel="shortcut icon" />
           <link href="/favicons/site.webmanifest" rel="manifest" />

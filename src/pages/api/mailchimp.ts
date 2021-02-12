@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import md5 from "md5"
-import { isString } from "util/predicates"
+import { isString } from "util/guards"
 import { emailRegEx, phoneRegEx, numRegEx } from "util/form-validations"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

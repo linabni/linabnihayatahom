@@ -2,7 +2,7 @@ import * as React from "react"
 import router from "next/router"
 import type { UserCredential, UserInfo } from "@firebase/auth-types"
 import firebase from "util/firebase"
-import { isString } from "util/predicates"
+import { isString } from "util/guards"
 import qs from "util/qs"
 import analytics from "util/analytics"
 
