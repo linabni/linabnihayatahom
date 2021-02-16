@@ -1,4 +1,4 @@
-import queryString from 'query-string'
+import queryString from "query-string"
 
 const qs = (key: string) => {
   return queryString.parse(window.location.search)[key]
