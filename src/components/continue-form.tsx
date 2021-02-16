@@ -4,7 +4,7 @@ import { useAuth } from "util/use-auth"
 import { useForm } from "react-hook-form"
 import { phoneRegEx, numRegEx } from "util/form-validations"
 import { isString } from "util/guards"
-import Input from "components/Input"
+import Input from "components/input"
 
 type ContinueFormInputs = {
   email: string

@@ -1,6 +1,6 @@
-import Link from 'components/Link'
-import { useAuth } from 'util/use-auth'
-import AuthCheck from 'components/AuthCheck'
+import { useAuth } from "util/use-auth"
+import Link from "components/link"
+import AuthCheck from "components/auth-check"
 
 const Home = () => {
   const { user, signout } = useAuth()

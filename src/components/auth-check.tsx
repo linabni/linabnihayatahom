@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useAuth } from "util/use-auth"
-import Link from "components/Link"
+import Link from "components/link"
 
 interface AuthCheckProps {
   children?: React.ReactNode

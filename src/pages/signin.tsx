@@ -6,8 +6,8 @@ import { useAuth } from "util/use-auth"
 import { emailRegEx } from "util/form-validations"
 import { isString } from "util/guards"
 
-import Input from "components/Input"
-import ContinueForm from "components/ContinueForm"
+import Input from "components/input"
+import ContinueForm from "components/continue-form"
 
 type SignInInputs = {
   email: string

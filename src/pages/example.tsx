@@ -1,5 +1,5 @@
 import Link from "next/link"
-import AuthCheck from "components/AuthCheck"
+import AuthCheck from "components/auth-check"
 
 const Example = () => {
   return (
