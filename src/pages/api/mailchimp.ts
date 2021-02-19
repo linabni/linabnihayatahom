@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import md5 from "md5"
-import { isString } from "util/guards"
-import { emailRegEx, phoneRegEx, numRegEx } from "util/form-validations"
+import { isString } from "utils/guards"
+import { emailRegEx, phoneRegEx, numRegEx } from "utils/form-validations"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, fullname, numkids, phone, church, country } = req.body

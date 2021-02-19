@@ -1,10 +1,10 @@
 import * as React from "react"
 import router from "next/router"
 import type { UserCredential, UserInfo } from "@firebase/auth-types"
-import firebase from "util/firebase"
-import { isString } from "util/guards"
-import qs from "util/qs"
-import analytics from "util/analytics"
+import firebase from "utils/firebase"
+import { isString } from "utils/guards"
+import qs from "utils/qs"
+import analytics from "utils/analytics"
 
 const auth = firebase.auth()
 

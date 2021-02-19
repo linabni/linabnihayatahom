@@ -1,4 +1,4 @@
-import { useAuth } from "util/use-auth"
+import { useAuth } from "utils/use-auth"
 import Link from "components/link"
 import AuthCheck from "components/auth-check"
 

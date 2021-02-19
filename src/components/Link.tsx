@@ -1,6 +1,6 @@
 import type { LinkProps } from "next/link"
 import NextLink from "next/link"
-import { isString } from "util/guards"
+import { isString } from "utils/guards"
 
 const Link = ({ href, ...rest }: React.PropsWithChildren<LinkProps>) => {
   // this is an external link

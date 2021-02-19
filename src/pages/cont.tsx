@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useAuth } from "util/use-auth"
+import { useAuth } from "utils/use-auth"
 import ContinueForm from "components/continue-form"
 
 const Auth = () => {

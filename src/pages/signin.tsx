@@ -2,9 +2,9 @@ import * as React from "react"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 
-import { useAuth } from "util/use-auth"
-import { emailRegEx } from "util/form-validations"
-import { isString } from "util/guards"
+import { useAuth } from "utils/use-auth"
+import { emailRegEx } from "utils/form-validations"
+import { isString } from "utils/guards"
 
 import Input from "components/input"
 import ContinueForm from "components/continue-form"

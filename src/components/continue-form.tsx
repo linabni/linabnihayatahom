@@ -1,9 +1,9 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import { useAuth } from "util/use-auth"
+import { useAuth } from "utils/use-auth"
 import { useForm } from "react-hook-form"
-import { phoneRegEx, numRegEx } from "util/form-validations"
-import { isString } from "util/guards"
+import { phoneRegEx, numRegEx } from "utils/form-validations"
+import { isString } from "utils/guards"
 import Input from "components/input"
 
 type ContinueFormInputs = {

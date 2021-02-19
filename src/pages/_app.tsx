@@ -1,9 +1,9 @@
-import 'styles/index.css'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import { DefaultSeo } from 'next-seo'
-import SEO from '../../next-seo.json'
-import { ProvideAuth } from 'util/use-auth'
+import "styles/index.css"
+import type { AppProps } from "next/app"
+import Head from "next/head"
+import { DefaultSeo } from "next-seo"
+import SEO from "../../next-seo.json"
+import { ProvideAuth } from "utils/use-auth"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
