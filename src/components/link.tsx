@@ -2,7 +2,7 @@ import type { LinkProps } from "next/link"
 import NextLink from "next/link"
 import { isString } from "utils/guards"
 
-const Lnk = ({ href, ...rest }: React.PropsWithChildren<LinkProps>) => {
+const Link = ({ href, ...rest }: React.PropsWithChildren<LinkProps>) => {
   // this is an external link
   if (isString(href) && href?.startsWith("http")) {
     return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
@@ -15,4 +15,4 @@ const Lnk = ({ href, ...rest }: React.PropsWithChildren<LinkProps>) => {
   )
 }
 
-export default Lnk
+export default Link

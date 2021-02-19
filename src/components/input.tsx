@@ -8,7 +8,7 @@ type Props = {
   defaultValue?: string | number
 }
 
-const Nput = React.forwardRef<HTMLInputElement, Props>(({ errs, label, name, ...rest }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, Props>(({ errs, label, name, ...rest }, ref) => {
   return (
     <>
       <label className="block font-semibold mb-1" htmlFor={name}>
@@ -29,4 +29,4 @@ const Nput = React.forwardRef<HTMLInputElement, Props>(({ errs, label, name, ...
     </>
   )
 })
-export default Nput
+export default Input

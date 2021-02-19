@@ -4,7 +4,7 @@ import { useAuth } from "utils/use-auth"
 import { useForm } from "react-hook-form"
 import { phoneRegEx, numRegEx } from "utils/form-validations"
 import { isString } from "utils/guards"
-import Nput from "components/nput"
+import Input from "components/input"
 
 type ContinueFormInputs = {
   email: string
@@ -49,13 +49,13 @@ const ContinueForm = () => {
       <label className="block font-semibold">Email</label>
       <p className="mb-2">{user?.email ?? "error loading email"}</p>
       <form onSubmit={onSubmit}>
-        <Nput
+        <Input
           ref={register({ required: "Full name is required" })}
           errs={errors.fullname?.message}
           name="fullname"
           label="Full name"
         />
-        <Nput
+        <Input
           ref={register({
             pattern: {
               value: phoneRegEx,
@@ -67,7 +67,7 @@ const ContinueForm = () => {
           name="phone"
           label="Phone"
         />
-        <Nput
+        <Input
           defaultValue={0}
           ref={register({
             pattern: { value: numRegEx, message: "Must be a number" },
@@ -81,13 +81,13 @@ const ContinueForm = () => {
           name="numkids"
           label="Number of children"
         />
-        <Nput
+        <Input
           ref={register({ required: "Church/Institution is required" })}
           errs={errors.church?.message}
           name="church"
           label="Church/Institution"
         />
-        <Nput
+        <Input
           ref={register({ required: "Country is required" })}
           errs={errors.country?.message}
           name="country"
