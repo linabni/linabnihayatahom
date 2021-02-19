@@ -6,7 +6,7 @@ import { useAuth } from "utils/use-auth"
 import { emailRegEx } from "utils/form-validations"
 import { isString } from "utils/guards"
 
-import Input from "components/input"
+import Nput from "components/nput"
 import ContinueForm from "components/continue-form"
 
 type SignInInputs = {
@@ -51,7 +51,7 @@ const Signin = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <Input
+        <Nput
           ref={register({
             pattern: {
               value: emailRegEx,
