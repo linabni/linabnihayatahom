@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useAuth } from "utils/use-auth"
-import Link from "components/link"
+import Lnk from "components/lnk"
 
 interface AuthCheckProps {
   children?: React.ReactNode
@@ -15,14 +15,14 @@ const AuthCheck = ({ children }: AuthCheckProps) => {
   }
 
   return (
-    <Link
+    <Lnk
       href={{
         pathname: "/signin",
         query: { next: router.pathname }
       }}
     >
       Sign in
-    </Link>
+    </Lnk>
   )
 }
 

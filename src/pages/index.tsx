@@ -1,5 +1,5 @@
 import { useAuth } from "utils/use-auth"
-import Link from "components/link"
+import Lnk from "components/lnk"
 import AuthCheck from "components/auth-check"
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
         <button onClick={() => signout()}>signout</button>
       </AuthCheck>
       <div>
-        <Link href="/example">example</Link>
+        <Lnk href="/example">example</Lnk>
       </div>
     </>
   )
